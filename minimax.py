@@ -20,6 +20,9 @@ class Minimax:
     def k(self):
         return 1 - self.game.moveCount / MAX_MOVES / 2
     
+    def hash(self, state):
+        return tuple(tuple(i) for i in state)
+    
     def negamax(self, depth, alpha, beta, color):
         # Check if game is over
         winner = self.game.currentState
