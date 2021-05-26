@@ -21,10 +21,16 @@ def opponent(player):
     else:
         assert False, f"neveljaven nasprotnik: {player}"
 
+
+############################################
+################# COMMENTS #################
+############################################
+# Player 1 wins with best play by starting (1,1,3)
+# If P1 starts with (1,0,3), P2 has a winning line starting with (1,1,3)
 class Logic:
     threes = [tuple((j,i) for j in range(DIM)) for i in range(DIM)] \
             + [tuple((i,j) for j in range(DIM)) for i in range(DIM)] \
-            + [((0,0), (1,1), (2,2))]
+            + [((0,0), (1,1), (2,2)), ((2,0),(1,1),(0,2))]
     def __init__(self, toMove = PLAYER1):
         # Create board
         self.board = [[EMPTY] * DIM for _ in range(DIM)]
@@ -153,7 +159,7 @@ class Logic:
             x2,y2 = three[2]
             if self.board[x1][y1] != EMPTY and self.board[x1][y1][0] == player and self.board[x2][y2] != EMPTY and self.board[x2][y2][0] == player:
                 return player, three
-        if self.moveCount == MAX_MOVES:
+        if self.moveCount == MAX_MOVES or len(self.getLegalMoves()) == 0:
             return TIE, None
         else:
             return NOT_OVER, None
